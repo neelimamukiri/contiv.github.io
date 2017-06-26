@@ -347,7 +347,7 @@ CNI (Container Network Interface) CoreOS's network model for containers
 - Allows container id (uuid) specification for the network interface you create  
 - Provides Container Create/Delete events  
 - Provides access to network namespace to the driver to plumb networking  
-- No separate IPAM Driver: Container Create returns the IAPM information along with other data  
+- No separate IPAM Driver: Container Create returns the IPAM information along with other data  
 - Used by Kubernetes and thus supported by various Kubernetes network plugins, including Contiv  
 
 Using Contiv with CNI/Kubernetes can be found [here](https://github.com/contiv/netplugin/tree/master/mgmtfn/k8splugin).
@@ -394,6 +394,8 @@ $ vagrant ssh legacy-swarm-worker0
 [vagrant@legacy-swarm-worker0 ~]$ exit
 
 $ vagrant ssh legacy-swarm-master
+
+$ export DOCKER_HOST=tcp://192.168.2.50:2375
 
 ```
 
@@ -1033,7 +1035,7 @@ logout
 Connection to 127.0.0.1 closed.
 ```
 ```
-$ cd .. # back to install directory
+$ cd .. # go back to install directory
 $ make cluster-destroy
 cd cluster && vagrant destroy -f
 ==> kubeadm-worker0: VM not created. Moving on...
