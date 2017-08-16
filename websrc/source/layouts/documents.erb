@@ -26,7 +26,45 @@
 						    </li>
 								</ul>
 									<hr>
-			<h3>Admin Guide</h3>
+			<h3>Install Contiv</h3>
+			<ul class="nav">
+				<li<%= sidebar_current("install") %>>
+					<a href="/documents/install/systemRequirements.html">System Requirements</a>
+				</li>
+				<li<%= sidebar_current("install") %>>
+				    <a href="/documents/install/kubernetes.html">Contiv on Kubernetes</a>
+				</li>
+				<li<%= sidebar_current("install") %>>
+				    <a href="/documents/install/legacy_swarm.html">Contiv on Legacy Docker Swarm</a>
+			    </li>
+			    <li<%= sidebar_current("install") %>>
+				    <a href="/documents/install/swarm_mode.html">Contiv on Docker Swarm Mode</a>
+			    </li>		
+			    <li<%= sidebar_current("install") %>>
+				    <a href="/documents/install/openshift.html">Contiv on OpenShift</a>
+			    </li>
+			    <li<%= sidebar_current("install") %>>
+				    <a href="/documents/install/manual.html">Manual Install</a>
+			    </li>
+			</ul>
+			<hr>
+			<h3>Configure Contiv</h3>
+			<ul class="nav">
+				<li<%= sidebar_current("config") %>>
+					<a href="/documents/config/vxlan.html">Overlay Networking</a>
+				</li>
+				<li<%= sidebar_current("config") %>>
+				    <a href="/documents/config/l2_bridged.html">L2 Bridged</a>
+				</li>
+				<li<%= sidebar_current("config") %>>
+				    <a href="/documents/config/l3_routing.html">L3 Routed</a>
+			    </li>		
+			    <li<%= sidebar_current("config") %>>
+				    <a href="/documents/config/aci.html">Cisco ACI</a>
+			    </li>
+			</ul>
+			<hr>
+			<h3>Manage Contiv</h3>
 			<ul class="nav">
 				<li<%= sidebar_current("admin") %>>
 					<a href="/documents/admin/index.html">Intro</a>
@@ -138,13 +176,6 @@
 					<li<%= sidebar_current("talks") %>>
 						<a href="/documents/talks/index.html">Community Talks</a>
 					</li>
-				</ul>
-			<hr><p>
-			<h3>OpenShift</h3>
-				<ul class="nav">
-						<li<%= sidebar_current("samples") %>>
-							<a href="/documents/openshift/index.html">Contiv and OpenShift</a>
-						</li>
 				</ul>
 			<hr><p>
 			<h3>Examples</h3>
