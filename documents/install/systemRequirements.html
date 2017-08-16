@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Getting Started">
+    <meta name="description" content="System Requirements">
 
     <link rel="shortcut icon" href="/assets/images/favicon.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <title>Getting Started - Contiv</title>
+    <title>System Requirements - Contiv</title>
 
     <link href="/assets/stylesheets/application-ffbab1f8.css" rel="stylesheet"/>
 
@@ -19,7 +19,7 @@
     
   </head>
 
-  <body id="page-Getting Started" class=" page-Getting Started layout-documents page-sub">
+  <body id="page-System Requirements" class=" page-System Requirements layout-documents page-sub">
 
   <div class="navbar-jumbotron">
     <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
@@ -114,22 +114,22 @@ GitHub</a></li>
 									<hr>
 			<h3>Install Contiv</h3>
 			<ul class="nav">
-				<li>
+				<li class="active">
 					<a href="/documents/install/systemRequirements.html">System Requirements</a>
 				</li>
-				<li>
+				<li class="active">
 				    <a href="/documents/install/kubernetes.html">Contiv on Kubernetes</a>
 				</li>
-				<li>
+				<li class="active">
 				    <a href="/documents/install/legacy_swarm.html">Contiv on Legacy Docker Swarm</a>
 			    </li>
-			    <li>
+			    <li class="active">
 				    <a href="/documents/install/swarm_mode.html">Contiv on Docker Swarm Mode</a>
 			    </li>		
-			    <li>
+			    <li class="active">
 				    <a href="/documents/install/openshift.html">Contiv on OpenShift</a>
 			    </li>
-			    <li>
+			    <li class="active">
 				    <a href="/documents/install/manual.html">Manual Install</a>
 			    </li>
 			</ul>
@@ -220,7 +220,7 @@ GitHub</a></li>
 					<li>
 						<a href="/documents/demos/index.html">Demonstration Videos</a>
 					</li>
-					<li class="active">
+					<li>
 						<a href="/documents/talks/index.html">Community Talks</a>
 					</li>
 				</ul>
@@ -259,17 +259,15 @@ GitHub</a></li>
 		</div>  
 		<div id="main-content" class="col-sm-9 col-md-9 col-xs-12" role="main">
 			<div class="bs-docs-section">
-					<h1>Community Talks</h1>
+					<h1>System Requirements</h1>
+<p>Contiv can be run in a single master or multi-master configuration. Please refer to the Orchestrator specific hardware/software requirements.</p>
+<p>For VXLAN mode, Contiv needs a single NIC on the nodes .
+For VLAN mode, Contiv needs one NIC for the control plane and one NIC for the data plane.</p>
+<p>For detailed topology configuration requirements, refer to the specific <a href="config/index.md">configuration</a> pages.</p>
 
-<h3>DockerCon&#39;16 Enabling Container Applications in Production</h3>
-<iframe width="854" height="480" src="https://www.youtube.com/embed/9_dGGBxrRko" frameborder="0" allowfullscreen>
-</iframe>
-<h3>Leveraging Enterprise Networks for Containers</h3>
-<iframe width="600" height="400" src="https://www.youtube.com/embed/8IiPOlmxXz4" frameborder="0" allowfullscreen>
-</iframe>
-<h3>Project Contiv, Containers and Microservices</h3>
-<iframe width="600" height="400" src="https://www.youtube.com/embed/dkQhjKL1xfo" frameborder="0" allowfullscreen>
-</iframe>
+<h1>Guest Operating Systems</h1>
+<p>Contiv is currently supported on CentOS 7.x and RHEL 7.x, with community support available for Ubuntu 16.04+</p>
+
 	<hr>
 
 			</div>

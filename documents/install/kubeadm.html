@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Getting Started">
+    <meta name="description" content="Contiv on Kubeadm Cluster">
 
     <link rel="shortcut icon" href="/assets/images/favicon.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <title>Getting Started - Contiv</title>
+    <title>Contiv on Kubeadm Cluster - Contiv</title>
 
     <link href="/assets/stylesheets/application-ffbab1f8.css" rel="stylesheet"/>
 
@@ -19,7 +19,7 @@
     
   </head>
 
-  <body id="page-Getting Started" class=" page-Getting Started layout-documents page-sub">
+  <body id="page-Contiv on Kubeadm Cluster" class=" page-Contiv on Kubeadm Cluster layout-documents page-sub">
 
   <div class="navbar-jumbotron">
     <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
@@ -114,22 +114,22 @@ GitHub</a></li>
 									<hr>
 			<h3>Install Contiv</h3>
 			<ul class="nav">
-				<li>
+				<li class="active">
 					<a href="/documents/install/systemRequirements.html">System Requirements</a>
 				</li>
-				<li>
+				<li class="active">
 				    <a href="/documents/install/kubernetes.html">Contiv on Kubernetes</a>
 				</li>
-				<li>
+				<li class="active">
 				    <a href="/documents/install/legacy_swarm.html">Contiv on Legacy Docker Swarm</a>
 			    </li>
-			    <li>
+			    <li class="active">
 				    <a href="/documents/install/swarm_mode.html">Contiv on Docker Swarm Mode</a>
 			    </li>		
-			    <li>
+			    <li class="active">
 				    <a href="/documents/install/openshift.html">Contiv on OpenShift</a>
 			    </li>
-			    <li>
+			    <li class="active">
 				    <a href="/documents/install/manual.html">Manual Install</a>
 			    </li>
 			</ul>
@@ -220,7 +220,7 @@ GitHub</a></li>
 					<li>
 						<a href="/documents/demos/index.html">Demonstration Videos</a>
 					</li>
-					<li class="active">
+					<li>
 						<a href="/documents/talks/index.html">Community Talks</a>
 					</li>
 				</ul>
@@ -259,17 +259,105 @@ GitHub</a></li>
 		</div>  
 		<div id="main-content" class="col-sm-9 col-md-9 col-xs-12" role="main">
 			<div class="bs-docs-section">
-					<h1>Community Talks</h1>
+					<h1>Contiv Installation for Kubernetes 1.4+ cluster setup with Kubeadm</h1>
 
-<h3>DockerCon&#39;16 Enabling Container Applications in Production</h3>
-<iframe width="854" height="480" src="https://www.youtube.com/embed/9_dGGBxrRko" frameborder="0" allowfullscreen>
-</iframe>
-<h3>Leveraging Enterprise Networks for Containers</h3>
-<iframe width="600" height="400" src="https://www.youtube.com/embed/8IiPOlmxXz4" frameborder="0" allowfullscreen>
-</iframe>
-<h3>Project Contiv, Containers and Microservices</h3>
-<iframe width="600" height="400" src="https://www.youtube.com/embed/dkQhjKL1xfo" frameborder="0" allowfullscreen>
-</iframe>
+<h2>Prerequisites</h2>
+
+<h3>Proxy Configuration</h3>
+<p>export no_proxy=ips of all nodes in cluster,127.0.0.1,localhost,netmaster</p>
+<p>If your servers are behind an http proxy, configure the proxy.</p>
+<pre class="highlight plaintext"><code>export http_proxy=&lt;proxy_url&gt;
+export https_proxy=&lt;proxy_url&gt;
+
+</code></pre>
+
+<h3>Host Name/IP Configuration</h3>
+
+<ol>
+<li>Ensure that /etc/hosts has the host name to IP mapping for the host. This IP must be accessible to all the nodes in the Kubernetes cluster.
+</li>
+<li>Ensure that <a name="hostname"/><a href="#hostname"><code>hostname</code></a>, the host name in <code>/etc/hosts</code> and the environment variable <code>HOSTNAME</code> all point to the same name.
+</li>
+</ol>
+
+<h3>Kubernetes Installation</h3>
+
+<ul>
+<li>Kubernetes 1.4.x, 1.5.x and 1.6.2+ are supported with the following instructions.
+</li>
+<li>~Kubernetes versions 1.6.0 and 1.6.1 are not supported due to <a href="https://github.com/kubernetes/kubernetes/issues/44041">this issue.</a>
+</li>
+<li>Install Kubernetes using <a href="http://kubernetes.io/docs/getting-started-guides/kubeadm/">kubeadm</a>:
+
+<ol>
+<li>kubeadm installs the latest Kubernetes version. <br>
+
+<ul>
+<li>For Kubernetes 1.4, see an example script <a href="https://github.com/contiv/install/blob/master/cluster/k8s1.4/k8smaster.sh">here.</a>
+</li>
+<li>For Kubernetes 1.6.2+, see an example script <a href="https://github.com/contiv/install/blob/master/cluster/k8s1.6/k8smaster.sh">here.</a>
+</li>
+</ul>
+</li>
+<li>Replace step (3/4) in the kubeadm install guide with the following Contiv Installation Instructions. Contiv installation can be done after completing step (4/4) in the Kubeadm installation.
+</li>
+<li>Ensure that the master nodes have the <code>node-role.kubernetes.io/master</code> taint by running the following command.
+<code>
+kubectl describe nodes
+</code>
+<del>Contiv master components are only run on nodes tainted with this annotation as described <a href="https://github.com/contiv/install/blob/master/install/k8s/k8s1.6/contiv.yaml#L254-L258">here</a>. If you are trying to run Contiv on a cluster where the master nodes are tainted differently, the node tolerations &amp; nodeSelector fields need to be changed in all the yaml files in <code>install/k8s/k8s1.6</code> or <code>install/k8s/k8s1.4</code> folders.</del>
+</li>
+</ol>
+</li>
+</ul>
+
+<h2>Contiv Installation</h2>
+
+<ul>
+<li>Run the following commands from the Kubernetes master host.
+</li>
+<li>Use curl to get the installer bundle: <br><a name="curl_L_O_https_github_com_contiv_install_releases_download_VERSION_contiv_VERSION_tgz"/><a href="#curl_L_O_https_github_com_contiv_install_releases_download_VERSION_contiv_VERSION_tgz"><code>curl -L -O https://github.com/contiv/install/releases/download/$VERSION/contiv-$VERSION.tgz</code></a>
+</li>
+<li>Extract the install bundle <br><a name="tar_oxf_contiv_VERSION_tgz"/><a href="#tar_oxf_contiv_VERSION_tgz"><code>tar oxf contiv-$VERSION.tgz</code></a>.
+</li>
+<li>Change directories to the extracted folder <br><a name="cd_contiv_VERSION"/><a href="#cd_contiv_VERSION"><code>cd contiv-$VERSION</code></a>
+</li>
+<li>To install Contiv with VXLAN:<br> <a name="sudo_install_k8s_install_sh_n_CONTIV_MASTER"/><a href="#sudo_install_k8s_install_sh_n_CONTIV_MASTER"><code>sudo ./install/k8s/install.sh -n $CONTIV_MASTER</code></a>
+</li>
+<li><strong>NOTE:</strong> Use the same IP for CONTIV_MASTER as you use for --api-advertise-addresses in kubeadm init.
+</li>
+<li>To install Contiv specifying a data plane interface for VLAN:<br> <a name="sudo_install_k8s_install_sh_n_CONTIV_MASTER_v_lt_data_plane_interface_like_eth1_gt_"/><a href="#sudo_install_k8s_install_sh_n_CONTIV_MASTER_v_lt_data_plane_interface_like_eth1_gt_"><code>sudo ./install/k8s/install.sh -n $CONTIV_MASTER -v &lt;data plane interface like eth1&gt;</code></a>
+</li>
+<li><strong>NOTE:</strong> Ensure that the data plane interface is the same on all the worker nodes.
+</li>
+<li>To install Contiv with ACI: <br><code>./install/k8s/install.sh -n $CONTIV_MASTER -a &lt;APIC URL&gt; -u &lt;APIC User&gt; -p &lt;APIC Password&gt; -l &lt;Leaf Nodes&gt; -d &lt;Physical Domain&gt; -e &lt;EPG Bridge domain&gt; -m &lt;APIC contracts unrestricted mode&gt;
+</code> <br> For example: <br> <code>./install/k8s/install.sh -n &lt;netmaster DNS/IP&gt; -a https://apic_host:443 -u apic_user -p apic_password -l topology/pod-xxx/node-xxx -d phys_domain -e not_specified -m no
+</code>
+<br> where <a name="_CONTIV_MASTER"/><a href="#_CONTIV_MASTER"><code>$CONTIV_MASTER</code></a> is the Contiv proxy or Net Master IP.
+</li>
+<li>To install Contiv with a custom infra network and gateway: <br><a name="_install_k8s_install_sh_n_lt_netmaster_DNS_IP_gt_g_lt_GATEWAY_IP_gt_i_lt_SUBNET_gt_"/><a href="#_install_k8s_install_sh_n_lt_netmaster_DNS_IP_gt_g_lt_GATEWAY_IP_gt_i_lt_SUBNET_gt_"><code>./install/k8s/install.sh -n &lt;netmaster DNS/IP&gt; -g &lt;GATEWAY IP&gt; -i &lt;SUBNET&gt;</code></a>
+</li>
+<li>To see additional install options, run <br> <a name="_install_ansible_install_sh"/><a href="#_install_ansible_install_sh"><code>./install/ansible/install.sh</code></a>.
+</li>
+</ul>
+
+<h2>Removing Contiv</h2>
+
+<ul>
+<li>To uninstall Contiv, retaining the etcd state, run:<br>
+<a name="sudo_install_k8s_uninstall_sh"/><a href="#sudo_install_k8s_uninstall_sh"><code>sudo ./install/k8s/uninstall.sh</code></a>
+</li>
+<li>To uninstall Contiv, cleaning up the etcd state, run:<br>
+<a name="sudo_install_k8s_uninstall_sh_etcd_cleanup"/><a href="#sudo_install_k8s_uninstall_sh_etcd_cleanup"><code>sudo ./install/k8s/uninstall.sh etcd-cleanup</code></a>. <br>Use this option to cleanup all the Contiv network state. 
+</li>
+<li>To stop Contiv, go to the install folder contiv-$VERSION and run:<br> <a name="kubectl_delete_f_contiv_yaml"/><a href="#kubectl_delete_f_contiv_yaml"><code>kubectl delete -f .contiv.yaml</code></a>
+</li>
+<li>To start Contiv, go to the install folder contiv-$VERSION and run:<br> <a name="kubectl_apply_f_contiv_yaml"/><a href="#kubectl_apply_f_contiv_yaml"><code>kubectl apply -f .contiv.yaml</code></a>
+</li>
+<li>To remove etcd state when Contiv is stopped, run: <br> <a name="rm_rf_var_etcd_contiv_data"/><a href="#rm_rf_var_etcd_contiv_data"><code>rm -rf /var/etcd/contiv-data</code></a>
+</li>
+</ul>
+
 	<hr>
 
 			</div>
